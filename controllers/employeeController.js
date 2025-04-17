@@ -31,7 +31,7 @@ export const getAllemployee = async(req, res) =>{
         res.status(500).json({error:error}); 
     }
 }
-
+//delete operation
 export const deleteEmployee = async(req, res) =>{
     try {
         const id = req.params.id;
