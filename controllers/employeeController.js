@@ -63,6 +63,24 @@ export const getOneEmployee = async(req,res) =>{
     }
 }
 
+/*
+export const getOneEmployee = async(req,res) =>{
+    try {
+
+        const id = req.params.id;
+        const employeeExist = await Employee.findById(id);
+        if(!employeeExist){
+            return res.status(404).json({msg: "Employee not found"});
+        }
+        res.status(200).json(employeeExist);
+        
+    } catch (error) {
+        res.status(500).json({error:error});
+    }
+}
+*/
+
+//update employee operation
 export const updateemployee = async(req, res) =>{
     try {
 
