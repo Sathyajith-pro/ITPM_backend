@@ -29,20 +29,21 @@ class StockController {
       res.status(500).json({ error: error });
     }
   };
-
-  //Get Stock
-  getOne = async (req, res) => {
-    try {
-      const id = req.params.id;
-      const stockExist = await Stock.findById(id);
-      if (!stockExist) {
-        return res.status(404).json({ msg: "Stock not found" });
+    //Get Stock
+    getOne = async (req, res) => {
+      try {
+        const id = req.params.id;
+        const stockExist = await Stock.findById(id);
+        if (!stockExist) {
+          return res.status(404).json({ msg: "Stock not found" });
+        }
+        res.status(200).json(stockExist);
+      } catch (error) {
+        res.status(500).json({ error: error });
       }
-      res.status(200).json(stockExist);
-    } catch (error) {
-      res.status(500).json({ error: error });
-    }
-  };
+    };
+
+
 
   //Update Stock
   update = async (req, res) => {
