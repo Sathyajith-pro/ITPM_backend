@@ -11,6 +11,7 @@ export function addReview(req,res){
     const data = req.body;
 
     //console.log("req.user",req.user);
+    //console.log("req.body",req.body);
 
     data.name = req.user.firstName + " " +req.user.lastName;
     data.email = req.user.email;
