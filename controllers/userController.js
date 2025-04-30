@@ -60,7 +60,7 @@ export function loginUser(req,res){
 //users list
 
 export async function getUsers(req,res){
-
+//use try catch block to handle errors
     try{
 
         if(isItAdmin(req)){
