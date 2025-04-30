@@ -2,7 +2,7 @@ import express from "express";
 import StockController from "../controllers/StockController.js";
 
 const route = express.Router();
-
+//set routes
 route.post("/create", StockController.create);
 route.get("/getAll", StockController.getAll);
 route.post("/get", StockController.getOne);

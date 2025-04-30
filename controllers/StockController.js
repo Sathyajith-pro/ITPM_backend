@@ -46,6 +46,9 @@ class StockController {
 
 
   //Update Stock
+  //use try catch block 
+
+  
   update = async (req, res) => {
     try {
       const { id, brand, model, quatity } = req.body;
