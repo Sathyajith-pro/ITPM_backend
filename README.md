@@ -2,22 +2,14 @@
 
 A full-stack web application for browsing, managing, and booking event tickets. Built with the MERN stack (MongoDB, Express, React, Node.js) and styled using Tailwind CSS.
 
-✨ Features
-👤 For Users
+## 🚀 Features
 
-🔐 Secure Authentication - JWT and social login options
-🔍 Event Discovery - Browse by category, location, and date
-💳 Secure Payments - Multiple payment options available
-📱 E-Tickets - Mobile tickets with QR codes
-🔔 Notifications - Stay updated about your events
-
-🏢 For Organizers
-
-✏️ Event Creation - Simple interface for creating events
-📊 Analytics Dashboard - Track sales and attendance
-🏷️ Ticket Management - Create different ticket types
-📢 Promotion Tools - Discount codes and special offers
-👥 Attendee Management - Check-in features and attendee lists
+- User authentication (login/register)
+- Browse upcoming events
+- Book tickets for events
+- Admin dashboard to manage events
+- View and manage bookings
+- Mobile-responsive design
 
 ## 🛠️ Tech Stack
 
