@@ -9,6 +9,8 @@ route.post("/createemp", createemployee);
 route.get("/getallemp", getAllemployee);
 
 route.get("/getoneemployee/:id", getOneEmployee);
+//update all emp
 route.put("/updateemployee/:id", updateemployee);
+//delete all emp
 route.delete("/deleteemp/:id", deleteEmployee);
 export default route;
