@@ -98,6 +98,7 @@ export async function updateUser(req,res){
             })
             return;*/
 
+            //user authentication
             if (result.matchedCount === 0) {
                 // No product found with the given key
                 res.status(404).json({
