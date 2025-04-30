@@ -125,30 +125,29 @@ export async function updateUser(req,res){
 }
 
 
-//delete
+//delete user permenently
 
-export async function deleteUser(req,res){
-    try{
-        if(isItAdmin(req)){
+export async function deleteUser(req, res) {
+    try {
+        if (isItAdmin(req)) {
             const key = req.params.email;
-            await User.deleteOne({email:email});
+            await User.deleteOne({ email: key }); // FIXED HERE
             res.json({
-                message : "user deleted successfully"
-            })
-
-        }else{
+                message: "User deleted successfully"
+            });
+        } else {
             res.status(403).json({
-                message : "You are not authorized perform this action"
-            })
-            return;
+                message: "You are not authorized to perform this action"
+            });
         }
-
-    }catch(e){
+    } catch (e) {
+        console.log(e);
         res.status(500).json({
-            message : "faied to delete user"
-        })
+            message: "Failed to delete user"
+        });
     }
 }
+
 
 
 
