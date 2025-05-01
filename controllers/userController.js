@@ -84,80 +84,74 @@ export async function getUsers(req,res){
 
 export async function updateUser(req,res){
     try {
-        if(isItAdmin(req)){ 
+        const email = req.params.email;
+        const data = req.body;
 
-            const key = req.params.email;
-
-            const data = req.body;
-
-           const result= await User.updateOne({email:email},data);
+        // Check if user is admin or updating their own profile
+        if(isItAdmin(req) || (req.user && req.user.email === email)) {
+            const result = await User.updateOne({email: email}, data);
             
-           /* res.json({
-                message:"product updated successfully"
-
-            })
-            return;*/
-
             if (result.matchedCount === 0) {
-                // No product found with the given key
-                res.status(404).json({
+                return res.status(404).json({
                     message: "User not found with the specified email"
                 });
-                return;
-            }else
+            }
 
-            res.json({
+            return res.json({
                 message: "User updated successfully"
             });
-
-        }else{
-            res.status(403).json({
-                message:"you are noy authorized perform this action"
-            })
-            return
+        } else {
+            return res.status(403).json({
+                message: "You are not authorized to perform this action"
+            });
         }
-        
     } catch (error) {
-        res.status(500).json({
-            message : "failed to update product"
-        })
+        console.error("Error updating user:", error);
+        return res.status(500).json({
+            message: "Failed to update user"
+        });
     }
 }
 
 
 //delete
 
-export async function deleteUser(req,res){
-    try{
-        if(isItAdmin(req)){
+export async function deleteUser(req, res) {
+    try {
+        if (isItAdmin(req)) {
             const key = req.params.email;
-            await User.deleteOne({email:email});
+            await User.deleteOne({ email: key }); // FIXED HERE
             res.json({
-                message : "user deleted successfully"
-            })
-
-        }else{
+                message: "User deleted successfully"
+            });
+        } else {
             res.status(403).json({
-                message : "You are not authorized perform this action"
-            })
-            return;
+                message: "You are not authorized to perform this action"
+            });
         }
-
-    }catch(e){
+    } catch (e) {
+        console.log(e);
         res.status(500).json({
-            message : "faied to delete user"
-        })
+            message: "Failed to delete user"
+        });
     }
 }
 
-
-
-
-
-
-
-
-
+export async function getUserByEmail(req, res) {
+    try {
+        const email = req.params.email;
+        const user = await User.findOne({ email: email });
+        
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        
+        res.json(user);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Failed to get user" });
+    }
+}
 
 export function isItAdmin(req){
 

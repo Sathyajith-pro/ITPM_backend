@@ -23,26 +23,22 @@ app.use(cors());
 
 app.use(bodyParser.json()); //middleware parser library 
 
-app.use((req,res,next)=>{   //create middleware
+app.use((req, res, next) => {
+    let token = req.header("Authorization");
     
-    let token= req.header
-    ("Authorization");
-    
-    if(token!=null){
-        token = token.replace("Bearer ","");
-
-        jwt.verify(token,process.env.JWT_SECRET,
-        (err, decoded) => {
-            //console.log(err);
-            if(!err){
-                req.user = decoded;
-                
-            }
-        });
+    if (token) {
+        token = token.replace("Bearer ", "");
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            req.user = decoded;
+            next();
+        } catch (err) {
+            console.error("Token verification failed:", err);
+            res.status(401).json({ message: "Invalid token" });
+        }
+    } else {
+        next();
     }
-    next()
-
-    
 });
 
 
