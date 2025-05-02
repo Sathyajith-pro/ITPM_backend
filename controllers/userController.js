@@ -176,3 +176,78 @@ export function isItCustomer(req){
     }
     return isCustomer;
 }
+
+
+
+
+
+//new user profile 
+// Get current user profile
+export async function getCurrentUser(req, res) {
+  try {
+    const user = await User.findOne({ email: req.user.email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch user profile" });
+  }
+}
+
+// Update current user profile
+export async function updateCurrentUser(req, res) {
+  try {
+    const { email, password, ...updateData } = req.body;
+    
+    // Don't allow email or password updates through this endpoint
+    if (email || password) {
+      return res.status(400).json({ message: "Cannot update email or password through this endpoint" });
+    }
+
+    const updatedUser = await User.findOneAndUpdate(
+      { email: req.user.email },
+      updateData,
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({
+      message: "Profile updated successfully",
+      user: updatedUser
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to update profile" });
+  }
+}
+
+// Upload profile picture
+export async function uploadProfilePicture(req, res) {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+
+    const imagePath = `/uploads/profile-pictures/${req.file.filename}`;
+    
+    const updatedUser = await User.findOneAndUpdate(
+      { email: req.user.email },
+      { profilePicture: imagePath },
+      { new: true }
+    );
+
+    res.json({
+      message: "Profile picture uploaded successfully",
+      profilePicture: updatedUser.profilePicture
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to upload profile picture" });
+  }
+}
+
+
+
+

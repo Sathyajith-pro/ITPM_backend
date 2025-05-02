@@ -51,7 +51,10 @@ export async function getProducts(req,res){
         res.status(500).json({
             message : "Failed to get product"
         })
+
+       
     }
+    
 }
 
 //update Events
