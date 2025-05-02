@@ -42,10 +42,11 @@ router.get('/get', async (req, res) => {
 });
 
 router.post("/addsuppliers", async (req, res) => {
-    const { name, address, event, num_participant } = req.body;
+    const { userid,name, address, event, num_participant } = req.body;
 
     try {
         const newDetails = await suppliermodels.create({
+            userid,
             name,
             address,
             event,

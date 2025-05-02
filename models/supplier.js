@@ -1,6 +1,11 @@
+ 
 import mongoose from 'mongoose';
 
 const supplierSchema = new mongoose.Schema({
+    userid:{
+        type:String,
+        required:true
+    },
     name: {
         type: String,
         required: true
